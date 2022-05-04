@@ -4,7 +4,7 @@
     "keywords": [
         "webfox",
         "laravel",
-        "laravel-inertia-dataproviders"
+        "inertia"
     ],
     "homepage": "https://github.com/webfox/laravel-inertia-dataproviders",
     "license": "MIT",
