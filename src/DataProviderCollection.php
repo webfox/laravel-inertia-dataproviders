@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Webfox\InertiaDataProviders;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Contracts\Support\Arrayable;
 
 class DataProviderCollection implements Arrayable
 {
@@ -20,8 +21,9 @@ class DataProviderCollection implements Arrayable
 
     public function add(DataProvider|array ...$dataProviders): static
     {
-        $this->dataProviders = $this->dataProviders->concat(collect($dataProviders)
-            ->map(fn(DataProvider|array $dataProvider) => Arr::wrap($dataProvider))
+        $this->dataProviders = $this->dataProviders->concat(
+            collect($dataProviders)
+            ->map(fn (DataProvider|array $dataProvider) => Arr::wrap($dataProvider))
             ->flatten()
             ->filter()
         );
@@ -34,7 +36,7 @@ class DataProviderCollection implements Arrayable
      */
     public function remove(string $dataProvider): static
     {
-        $this->dataProviders = $this->dataProviders->filter(fn(DataProvider $instance) => $instance::class !== $dataProvider);
+        $this->dataProviders = $this->dataProviders->filter(fn (DataProvider $instance) => $instance::class !== $dataProvider);
 
         return $this;
     }
@@ -47,6 +49,7 @@ class DataProviderCollection implements Arrayable
     public function empty(): static
     {
         $this->dataProviders = collect();
+
         return $this;
     }
 
@@ -71,7 +74,7 @@ class DataProviderCollection implements Arrayable
      */
     public function unless(bool|callable $condition, callable $callback): static
     {
-        if (!value($condition)) {
+        if (! value($condition)) {
             $callback($this);
         }
 
@@ -81,7 +84,7 @@ class DataProviderCollection implements Arrayable
     public function toArray(): array
     {
         return $this->dataProviders
-            ->flatMap(fn(DataProvider $dataProvider) => $dataProvider->toArray())
+            ->flatMap(fn (DataProvider $dataProvider) => $dataProvider->toArray())
             ->all();
     }
 }
