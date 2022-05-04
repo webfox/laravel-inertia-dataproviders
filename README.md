@@ -181,12 +181,10 @@ class DemoController extends Controller
 ```
 
 Or you can use the `DataProviderCollection::add` method to add a DataProvider to the collection later:
-You can also conditionally include DataProviders in the collection:
 ```php
 use App\Models\Demo;
 use App\DataProviders\TabDataProvider;
 use App\DataProviders\DemoDataProvider;
-use App\DataProviders\EditDemoDataProvider;
 use App\DataProviders\CreateVenueDataProvider;
 
 class DemoController extends Controller
