@@ -1,4 +1,5 @@
 .idea
+.lando.yml
 .php_cs
 .php_cs.cache
 .phpunit.result.cache
