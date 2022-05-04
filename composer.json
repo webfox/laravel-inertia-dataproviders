@@ -15,6 +15,9 @@
             "role": "Developer"
         }
     ],
+    "suggest": {
+        "inertiajs/inertia-laravel": "Needed for basic inertia functionality"
+    },
     "require": {
         "php": "^8.0",
         "spatie/laravel-package-tools": "^1.9.2",
