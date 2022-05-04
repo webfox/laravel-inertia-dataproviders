@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Webfox\InertiaDataProviders;
 
-use ReflectionNamedType;
 use Illuminate\Contracts\Support\Arrayable;
 use Inertia\LazyProp;
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionNamedType;
 use ReflectionProperty;
 
 abstract class DataProvider implements Arrayable
