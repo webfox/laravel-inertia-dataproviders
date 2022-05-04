@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Webfox\InertiaDataProviders;
 
+use ReflectionNamedType;
 use Illuminate\Contracts\Support\Arrayable;
 use Inertia\LazyProp;
 use ReflectionClass;
@@ -33,8 +34,9 @@ abstract class DataProvider implements Arrayable
             ->filter(fn (ReflectionMethod $method) => ! $method->isStatic())
             ->filter(fn (ReflectionMethod $method) => ! $method->isStatic() && ! in_array($method->name, ['toArray', '__construct']))
             ->mapWithKeys(function (ReflectionMethod $method) {
+                $returnType = $method->getReturnType();
                 // @phpstan-ignore-next-line
-                if ($method->getReturnType()?->getName() === LazyProp::class) {
+                if ($returnType instanceof ReflectionNamedType && $returnType->getName() === LazyProp::class) {
                     return [$method->name => $method->invoke($this)];
                 }
 
