@@ -1,4 +1,4 @@
-# Laravel Inertia Data Providers
+# Laravel Data Providers for Inertia.js
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/webfox/laravel-inertia-dataproviders.svg?style=flat-square)](https://packagist.org/packages/webfox/laravel-inertia-dataproviders)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/webfox/laravel-inertia-dataproviders/run-tests?label=tests)](https://github.com/webfox/laravel-inertia-dataproviders/actions?query=workflow%3Arun-tests+branch%3Amain)
