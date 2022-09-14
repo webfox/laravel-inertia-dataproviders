@@ -1,16 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Webfox\InertiaDataProviders;
 
-use ReflectionClass;
+use Illuminate\Contracts\Support\Arrayable;
 use Inertia\LazyProp;
 use Inertia\Response;
+use ReflectionClass;
 use ReflectionMethod;
-use ReflectionProperty;
 use ReflectionNamedType;
+use ReflectionProperty;
 use Symfony\Component\VarDumper\VarDumper;
-use Illuminate\Contracts\Support\Arrayable;
 
 abstract class DataProvider implements Arrayable
 {
@@ -52,8 +53,9 @@ abstract class DataProvider implements Arrayable
     public function dump(): static
     {
         $response = new Response('', []);
-        $props    = $response->resolvePropertyInstances($this->toArray(), request());
+        $props = $response->resolvePropertyInstances($this->toArray(), request());
         VarDumper::dump($props);
+
         return $this;
     }
 
