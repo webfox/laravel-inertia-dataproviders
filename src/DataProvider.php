@@ -1,19 +1,22 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Webfox\InertiaDataProviders;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Inertia\LazyProp;
 use ReflectionClass;
+use Inertia\LazyProp;
+use Inertia\Response;
 use ReflectionMethod;
-use ReflectionNamedType;
 use ReflectionProperty;
+use ReflectionNamedType;
+use Symfony\Component\VarDumper\VarDumper;
+use Illuminate\Contracts\Support\Arrayable;
 
 abstract class DataProvider implements Arrayable
 {
     protected array|Arrayable $staticData = [];
+
+    protected array $excludedMethods = ['__construct', 'toArray', 'dd', 'dump',];
 
     public static function collection(DataProvider|array ...$dataProviders): DataProviderCollection
     {
@@ -32,7 +35,7 @@ abstract class DataProvider implements Arrayable
 
         $convertedMethods = collect($reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC))
             ->filter(fn (ReflectionMethod $method) => ! $method->isStatic())
-            ->filter(fn (ReflectionMethod $method) => ! $method->isStatic() && ! in_array($method->name, ['toArray', '__construct']))
+            ->filter(fn (ReflectionMethod $method) => ! $method->isStatic() && ! in_array($method->name, $this->excludedMethods))
             ->mapWithKeys(function (ReflectionMethod $method) {
                 $returnType = $method->getReturnType();
                 // @phpstan-ignore-next-line
@@ -44,5 +47,20 @@ abstract class DataProvider implements Arrayable
             });
 
         return collect()->merge($staticData)->merge($convertedProperties)->merge($convertedMethods)->toArray();
+    }
+
+    public function dump(): static
+    {
+        $response = new Response('', []);
+        $props    = $response->resolvePropertyInstances($this->toArray(), request());
+        VarDumper::dump($props);
+        return $this;
+    }
+
+    #[\JetBrains\PhpStorm\NoReturn]
+    public function dd()
+    {
+        $this->dump();
+        exit(1);
     }
 }
