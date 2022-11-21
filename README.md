@@ -9,17 +9,18 @@ Data providers encapsulate logic for Inertia views, keep your controllers clean 
 
 ## Installation
 
-We assume you've already got Inertia installed, so you can just install this package via composer:
+Install this package via composer:
 
 ```bash
 composer require webfox/laravel-inertia-dataproviders
 ```
+We assume you've already for the Inertia adapter for Laravel installed.
 
 ## Usage
 
 ### Using a Data Provider
-Data providers take advantage of the fact that `Inertia::render` can accept `Arrayable`s as well as standard arrays and so are used   
-instead a standard array in the `Inertia::render` method. They can also be used as discrete attributes in the data array.
+Data providers take advantage of the fact that `Inertia::render` can accept an `Arrayable`. 
+They can also be used as discrete attributes in the data array.
 
 ```php
 use App\Models\Demo;
