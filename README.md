@@ -16,6 +16,17 @@ composer require webfox/laravel-inertia-dataproviders
 ```
 We assume you've already for the Inertia adapter for Laravel installed.
 
+## What Problem Does This Package Solve?
+Controllers in Laravel are meant to be slim. We have Form Requests to extract our the validation & authorization logic and
+our display logic is in our views, so why do we still insist on making our controllers handle fetching the data for those views?
+
+This is especially evident in Inertia applications due to the introduction of concepts like lazy props.
+
+Data providers extract the data composition for your Inertia views into their own classes. Inertia data providers may prove particularly 
+useful if multiple routes or controllers within your application always needs a particular piece of data.
+
+No more 40 line controller methods for fetching data!
+
 ## Usage
 
 ### Using a Data Provider
