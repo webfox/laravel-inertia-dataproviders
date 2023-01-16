@@ -1,8 +1,6 @@
 # Laravel Data Providers for Inertia.js
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/webfox/laravel-inertia-dataproviders.svg?style=flat-square)](https://packagist.org/packages/webfox/laravel-inertia-dataproviders)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/webfox/laravel-inertia-dataproviders/run-tests?label=tests)](https://github.com/webfox/laravel-inertia-dataproviders/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/webfox/laravel-inertia-dataproviders/Check%20&%20fix%20styling?label=code%20style)](https://github.com/webfox/laravel-inertia-dataproviders/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/webfox/laravel-inertia-dataproviders.svg?style=flat-square)](https://packagist.org/packages/webfox/laravel-inertia-dataproviders)
 
 Data providers encapsulate logic for Inertia views, keep your controllers clean and simple.
