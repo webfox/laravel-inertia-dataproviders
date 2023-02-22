@@ -19,22 +19,22 @@
         "inertiajs/inertia-laravel": "Needed for basic inertia functionality"
     },
     "require": {
-        "php": "^8.0",
-        "spatie/laravel-package-tools": "^1.9.2",
-        "illuminate/contracts": "^9.0"
+        "php": "^8.1",
+        "spatie/laravel-package-tools": "^1.14.0",
+        "illuminate/contracts": "^10.0"
     },
     "require-dev": {
-        "inertiajs/inertia-laravel": "^0.6",
+        "inertiajs/inertia-laravel": "^v0.6.9",
         "jetbrains/phpstorm-attributes": "^1.0",
-        "nunomaduro/collision": "^6.0",
+        "nunomaduro/collision": "^v6.1",
         "nunomaduro/larastan": "^2.0.1",
-        "orchestra/testbench": "^7.0",
-        "pestphp/pest": "^1.21",
-        "pestphp/pest-plugin-laravel": "^1.1",
+        "orchestra/testbench": "^v8.0",
+        "pestphp/pest": "^v1.21",
+        "pestphp/pest-plugin-laravel": "^v1.1",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.6"
     },
     "autoload": {
         "psr-4": {
