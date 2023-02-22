@@ -6,7 +6,7 @@ All notable changes to `laravel-inertia-dataproviders` will be documented in thi
 
 ### What's Changed
 
-- update composer json by @Jim-Webfox in https://github.com/webfox/laravel-inertia-dataproviders/pull/6
+- Laravel 10 Support by @Jim-Webfox in https://github.com/webfox/laravel-inertia-dataproviders/pull/6
 
 ### New Contributors
 
