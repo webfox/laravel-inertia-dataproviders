@@ -53,6 +53,7 @@ abstract class DataProvider implements Arrayable
     public function toNestedArray(): array
     {
         $response = new Response('', []);
+
         return $response->resolvePropertyInstances($this->toArray(), request());
     }
 
