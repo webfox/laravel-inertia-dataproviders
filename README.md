@@ -215,6 +215,37 @@ class DemoController extends Controller
 }
 ```
 
+If you need to return the entire dataset as an array, for instance for use in JSON responses, you can use `toNestedArray()
+
+```php
+use App\Models\Demo;
+use Illuminate\Http\Request;
+use App\DataProviders\TabDataProvider;
+use App\DataProviders\DemoDataProvider;
+use App\DataProviders\CreateVenueDataProvider;
+
+class DemoController extends Controller
+{
+    public function show(Request $request, Demo $demo)
+    {
+        if ($request->get('json')) {
+            return (new DemoDataProvider($demo))->toNestedArray();
+        }
+    
+        $pageData = DataProvider::collection(
+            new TabDataProvider(current: 'demo'),
+            new DemoDataProvider($demo),
+        );
+        
+        if($demo->has_venue) {
+            $pageData->add(new CreateVenueDataProvider($demo));
+        }
+
+        return Inertia::render('DemoPage', $pageData);
+    }
+}
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
