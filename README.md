@@ -228,20 +228,7 @@ class DemoController extends Controller
 {
     public function show(Request $request, Demo $demo)
     {
-        if ($request->get('json')) {
-            return (new DemoDataProvider($demo))->toNestedArray();
-        }
-    
-        $pageData = DataProvider::collection(
-            new TabDataProvider(current: 'demo'),
-            new DemoDataProvider($demo),
-        );
-        
-        if($demo->has_venue) {
-            $pageData->add(new CreateVenueDataProvider($demo));
-        }
-
-        return Inertia::render('DemoPage', $pageData);
+        return (new DemoDataProvider($demo))->toNestedArray();
     }
 }
 ```

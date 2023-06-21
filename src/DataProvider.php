@@ -39,7 +39,6 @@ abstract class DataProvider implements Arrayable
             ->filter(fn (ReflectionMethod $method) => ! $method->isStatic() && ! in_array($method->name, $this->excludedMethods))
             ->mapWithKeys(function (ReflectionMethod $method) {
                 $returnType = $method->getReturnType();
-                // @phpstan-ignore-next-line
                 if ($returnType instanceof ReflectionNamedType && $returnType->getName() === LazyProp::class) {
                     return [$method->name => $method->invoke($this)];
                 }
@@ -58,8 +57,7 @@ abstract class DataProvider implements Arrayable
 
     public function dump(): static
     {
-        $props = $this->toNestedArray();
-        VarDumper::dump($props);
+        VarDumper::dump($this->toNestedArray());
 
         return $this;
     }
