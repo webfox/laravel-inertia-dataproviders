@@ -58,8 +58,7 @@ abstract class DataProvider implements Arrayable
 
     public function dump(): static
     {
-        $response = new Response('', []);
-        $props = $response->resolvePropertyInstances($this->toArray(), request());
+        $props = $this->toNestedArray();
         VarDumper::dump($props);
 
         return $this;
