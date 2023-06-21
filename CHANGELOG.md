@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-inertia-dataproviders` will be documented in this file.
 
+## v1.3.0 - 2023-06-22
+
+### What's Changed
+
+- Added `toNestedArray` method 
+
 ## v1.2.0 - 2023-02-22
 
 ### What's Changed

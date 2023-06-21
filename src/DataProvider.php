@@ -17,7 +17,7 @@ abstract class DataProvider implements Arrayable
 {
     protected array|Arrayable $staticData = [];
 
-    protected array $excludedMethods = ['__construct', 'toArray', 'dd', 'dump',];
+    protected array $excludedMethods = ['__construct', 'toArray', 'toNestedArray', 'dd', 'dump',];
 
     public static function collection(DataProvider|array ...$dataProviders): DataProviderCollection
     {
@@ -50,11 +50,15 @@ abstract class DataProvider implements Arrayable
         return collect()->merge($staticData)->merge($convertedProperties)->merge($convertedMethods)->toArray();
     }
 
-    public function dump(): static
+    public function toNestedArray(): array
     {
         $response = new Response('', []);
-        $props = $response->resolvePropertyInstances($this->toArray(), request());
-        VarDumper::dump($props);
+        return $response->resolvePropertyInstances($this->toArray(), request());
+    }
+
+    public function dump(): static
+    {
+        VarDumper::dump($this->toNestedArray());
 
         return $this;
     }
