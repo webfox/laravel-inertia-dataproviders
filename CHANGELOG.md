@@ -2,11 +2,19 @@
 
 All notable changes to `laravel-inertia-dataproviders` will be documented in this file.
 
+## V1.3.1 - 2023-06-22
+
+### What's Changed
+
+- FIX support laravel 9 by @SuryaWebfox in https://github.com/webfox/laravel-inertia-dataproviders/pull/11
+
+**Full Changelog**: https://github.com/webfox/laravel-inertia-dataproviders/compare/v1.3.0...v1.3.1
+
 ## v1.3.0 - 2023-06-22
 
 ### What's Changed
 
-- Added `toNestedArray` method 
+- Added `toNestedArray` method
 
 ## v1.2.0 - 2023-02-22
 
