@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Webfox\InertiaDataProviders;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 use Inertia\LazyProp;
 use Inertia\Response;
 use ReflectionClass;
@@ -13,11 +14,11 @@ use ReflectionNamedType;
 use ReflectionProperty;
 use Symfony\Component\VarDumper\VarDumper;
 
-abstract class DataProvider implements Arrayable
+abstract class DataProvider implements Arrayable, Jsonable
 {
     protected array|Arrayable $staticData = [];
 
-    protected array $excludedMethods = ['__construct', 'toArray', 'toNestedArray', 'dd', 'dump',];
+    protected array $excludedMethods = ['__construct', 'toArray', 'toNestedArray', 'toJson', 'dd', 'dump',];
 
     public static function collection(DataProvider|array ...$dataProviders): DataProviderCollection
     {
@@ -54,6 +55,11 @@ abstract class DataProvider implements Arrayable
         $response = new Response('', []);
 
         return $response->resolvePropertyInstances($this->toArray(), request());
+    }
+
+    public function toJson($options = 0): string
+    {
+        return json_encode($this->toNestedArray(), $options);
     }
 
     public function dump(): static
