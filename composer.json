@@ -21,20 +21,20 @@
     "require": {
         "php": "^8.1",
         "spatie/laravel-package-tools": "^1.14.0",
-        "illuminate/contracts": "^9.0|^10.0"
+        "illuminate/contracts": "^9.0|^10.0|^11.0"
     },
     "require-dev": {
-        "inertiajs/inertia-laravel": "^v0.6.9",
+        "inertiajs/inertia-laravel": "<2",
         "jetbrains/phpstorm-attributes": "^1.0",
-        "nunomaduro/collision": "^v6.1",
-        "nunomaduro/larastan": "^2.0.1",
-        "orchestra/testbench": "^v8.0",
-        "pestphp/pest": "^v1.21",
-        "pestphp/pest-plugin-laravel": "^v1.1",
+        "nunomaduro/collision": "^v8.1",
+        "larastan/larastan": "^v2.9",
+        "orchestra/testbench": "^v9.0",
+        "pestphp/pest": "^v2.34",
+        "pestphp/pest-plugin-laravel": "^v2.3",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.6"
+        "phpunit/phpunit": "^10.5"
     },
     "autoload": {
         "psr-4": {
