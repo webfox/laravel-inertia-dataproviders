@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-inertia-dataproviders` will be documented in this file.
 
+## v1.5.0 - 2024-03-12
+
+Add Laravel 11 support by @hailwood
+
+**Full Changelog**: https://github.com/webfox/laravel-inertia-dataproviders/compare/v1.4.0...v1.5.0
+
 ## v1.4.0 - 2024-02-27
 
 ### What's Changed
