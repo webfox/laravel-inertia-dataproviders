@@ -16,7 +16,7 @@ composer require webfox/laravel-inertia-dataproviders
 Optionally publish the configuration file:
 
 ```bash
-php artisan vendor:publish --provider="Webfox\InertiaDataProviders\InertiaDataProvidersServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Webfox\InertiaDataProviders\InertiaDataProvidersServiceProvider"
 ````
 
 We assume you've already for the Inertia adapter for Laravel installed.
