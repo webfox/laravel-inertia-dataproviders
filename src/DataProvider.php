@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Webfox\InertiaDataProviders;
 
-use ReflectionClass;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 use Inertia\LazyProp;
 use Inertia\Response;
+use ReflectionClass;
 use ReflectionMethod;
-use ReflectionProperty;
 use ReflectionNamedType;
-use Illuminate\Contracts\Support\Jsonable;
+use ReflectionProperty;
 use Symfony\Component\VarDumper\VarDumper;
-use Illuminate\Contracts\Support\Arrayable;
 use Webfox\InertiaDataProviders\AttributeNameFormatters\AttributeNameFormatter;
 
 abstract class DataProvider implements Arrayable, Jsonable
@@ -52,7 +52,7 @@ abstract class DataProvider implements Arrayable, Jsonable
             ->merge($staticData)
             ->merge($convertedProperties)
             ->merge($convertedMethods)
-            ->mapWithKeys(fn($value, $key) => [$this->attributeNameFormatter()($key) => $value])
+            ->mapWithKeys(fn ($value, $key) => [$this->attributeNameFormatter()($key) => $value])
             ->toArray();
     }
 
