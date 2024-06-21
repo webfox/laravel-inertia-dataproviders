@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Webfox\InertiaDataProviders;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Jsonable;
+use ReflectionClass;
 use Inertia\LazyProp;
 use Inertia\Response;
-use ReflectionClass;
 use ReflectionMethod;
-use ReflectionNamedType;
 use ReflectionProperty;
+use ReflectionNamedType;
+use Illuminate\Contracts\Support\Jsonable;
 use Symfony\Component\VarDumper\VarDumper;
+use Illuminate\Contracts\Support\Arrayable;
+use Webfox\InertiaDataProviders\AttributeNameFormatters\AttributeNameFormatter;
 
 abstract class DataProvider implements Arrayable, Jsonable
 {
@@ -47,7 +48,12 @@ abstract class DataProvider implements Arrayable, Jsonable
                 return [$method->name => fn () => app()->call([$this, $method->name])];
             });
 
-        return collect()->merge($staticData)->merge($convertedProperties)->merge($convertedMethods)->toArray();
+        return collect()
+            ->merge($staticData)
+            ->merge($convertedProperties)
+            ->merge($convertedMethods)
+            ->mapWithKeys(fn($value, $key) => [$this->attributeNameFormatter()($key) => $value])
+            ->toArray();
     }
 
     public function toNestedArray(): array
@@ -74,5 +80,10 @@ abstract class DataProvider implements Arrayable, Jsonable
     {
         $this->dump();
         exit(1);
+    }
+
+    protected function attributeNameFormatter(): AttributeNameFormatter
+    {
+        return app()->make(config('inertia-dataproviders.attribute_name_formatter'));
     }
 }
