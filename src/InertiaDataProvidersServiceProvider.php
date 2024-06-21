@@ -11,6 +11,6 @@ class InertiaDataProvidersServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('laravel-inertia-dataproviders')
-            ->hasConfigFile();
+            ->hasConfigFile('inertia-dataproviders');
     }
 }
