@@ -12,6 +12,13 @@ Install this package via composer:
 ```bash
 composer require webfox/laravel-inertia-dataproviders
 ```
+
+Optionally publish the configuration file:
+
+```bash
+php artisan vendor:publish --provider="Webfox\InertiaDataProviders\InertiaDataProvidersServiceProvider"
+````
+
 We assume you've already for the Inertia adapter for Laravel installed.
 
 ## What Problem Does This Package Solve?
@@ -232,6 +239,22 @@ class DemoController extends Controller
     }
 }
 ```
+
+## Attribute Name Formatting
+The attribute name format can be configured in the configuration file by setting the `attribute_name_formatter`.  
+The package ships with three formatters under the namespace `\Webfox\InertiaDataProviders\AttributeNameFormatters` but you are free to create your own.
+
+### AsWritten
+This is the default formatter. The output attribute name will be the same as the input name.
+E.g. a property named `$someData` and a method named `more_data()` will be available in the page as `someData` and `more_data`. 
+
+### SnakeCase
+This formatter will convert the attribute name to snake_case.  
+E.g. a property named `$someData` and a method named `more_data()` will be available in the page as `some_data` and `more_data`.
+
+### CamelCase
+This formatter will convert the attribute name to camelCase.  
+E.g. a property named `$someData` and a method named `more_data()` will be available in the page as `someData` and `moreData`.
 
 ## Changelog
 
