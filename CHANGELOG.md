@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-inertia-dataproviders` will be documented in this file.
 
+## v1.6.0 - 2024-06-21
+
+### What's Changed
+
+* Add support for attribute name formatting. by @hailwood in https://github.com/webfox/laravel-inertia-dataproviders/pull/20
+
+**Full Changelog**: https://github.com/webfox/laravel-inertia-dataproviders/compare/v1.5.0...v1.6.0
+
 ## v1.5.0 - 2024-03-12
 
 Add Laravel 11 support by @hailwood
