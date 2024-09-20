@@ -2,9 +2,10 @@
 
 All notable changes to `laravel-inertia-dataproviders` will be documented in this file.
 
-## v1.6.2 - 2024-09-20
+## v2.0.0 - 2024-09-20
 
 * Closure serialization bugfix.
+* Drop support for Laravel 9, 10
 
 **Full Changelog**: https://github.com/webfox/laravel-inertia-dataproviders/compare/v1.6.1...v1.6.2
 
