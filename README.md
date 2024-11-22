@@ -65,7 +65,8 @@ class DemoController extends Controller
 Data providers can live anywhere, but we'll use `App/Http/DataProviders` for this example.
 
 The simplest data provider is just a class that extends `DataProvider`, any public methods or properties will be available to the page as data.  
-A **fully featured** data provider might look like this:
+
+A **kitchen sink** data provider might look like this:
 
 ```php
 <?php
