@@ -19,7 +19,7 @@ Optionally publish the configuration file:
 php artisan vendor:publish --provider="Webfox\InertiaDataProviders\InertiaDataProvidersServiceProvider"
 ````
 
-We assume you've already for the Inertia adapter for Laravel installed.
+We assume you've already got the Inertia adapter for Laravel installed.
 
 ## What Problem Does This Package Solve?
 Controllers in Laravel are meant to be slim. We have Form Requests to extract our the validation & authorization logic and
