@@ -38,7 +38,6 @@ abstract class DataProvider implements Arrayable, Jsonable
             ->map(fn ($value) => $value instanceof Arrayable ? $value->toArray() : $value);
 
         $convertedMethods = collect($reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC))
-            ->filter(fn (ReflectionMethod $method) => ! $method->isStatic())
             ->filter(fn (ReflectionMethod $method) => ! $method->isStatic() && ! in_array($method->name, $this->excludedMethods))
             ->mapWithKeys(function (ReflectionMethod $method) {
                 $returnType = $method->getReturnType();
