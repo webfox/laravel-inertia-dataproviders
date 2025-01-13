@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-inertia-dataproviders` will be documented in this file.
 
+## v2.0.1 - 2025-01-13
+
+* Remove redundant filter expression
+
+**Full Changelog**: https://github.com/webfox/laravel-inertia-dataproviders/compare/v2.0.0...v2.0.1
+
 ## v2.0.0 - 2024-09-20
 
 * Closure serialization bugfix.
