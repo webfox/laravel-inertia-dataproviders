@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-inertia-dataproviders` will be documented in this file.
 
+## v2.1.0 - 2025-02-14
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/webfox/laravel-inertia-dataproviders/pull/23
+* Add Laravel 12 support. by @hailwood in https://github.com/webfox/laravel-inertia-dataproviders/pull/25
+* Add support for Inertia deferred props. by @hailwood in https://github.com/webfox/laravel-inertia-dataproviders/pull/24
+
+**Full Changelog**: https://github.com/webfox/laravel-inertia-dataproviders/compare/v2.0.1...v2.1.0
+
 ## v2.0.1 - 2025-01-13
 
 * Remove redundant filter expression
