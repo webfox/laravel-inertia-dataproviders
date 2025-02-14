@@ -25,7 +25,7 @@ We assume you've already got the Inertia adapter for Laravel installed.
 Controllers in Laravel are meant to be slim. We have Form Requests to extract our the validation & authorization logic and
 our display logic is in our views, so why do we still insist on making our controllers handle fetching the data for those views?
 
-This is especially evident in Inertia applications due to the introduction of concepts like lazy props.
+This is especially evident in Inertia applications due to the introduction of concepts like lazy and deferred props.
 
 Data providers extract the data composition for your Inertia views into their own classes. Inertia data providers may prove particularly 
 useful if multiple routes or controllers within your application always needs a particular piece of data.
@@ -65,8 +65,28 @@ class DemoController extends Controller
 Data providers can live anywhere, but we'll use `App/Http/DataProviders` for this example.
 
 The simplest data provider is just a class that extends `DataProvider`, any public methods or properties will be available to the page as data.  
+```php
+<?php
+declare(strict_types=1);
 
-A **kitchen sink** data provider might look like this:
+namespace App\Http\DataProviders;
+
+use Inertia\LazyProp;
+use App\Services\InjectedDependency;
+use Webfox\InertiaDataProviders\DataProvider;
+
+class DemoDataProvider extends DataProvider
+{
+    public string $someData = 'data';
+    
+    public function moreData(): int
+    {
+        return time();
+    }
+}
+```
+
+A full **kitchen sink** data provider might look like this:
 
 ```php
 <?php
@@ -74,6 +94,7 @@ declare(strict_types=1);
 
 namespace App\Http\DataProviders;
 
+use Inertia\DeferProp;
 use Inertia\LazyProp;
 use App\Services\InjectedDependency;
 use Webfox\InertiaDataProviders\DataProvider;
@@ -116,16 +137,16 @@ class DemoDataProvider extends DataProvider
     }
     
     /*
-     * If a method returns a `Closure` it will be evaluated as a lazy property.
-     * ALWAYS included on first visit, OPTIONALLY included on partial reloads, ONLY evaluated when needed
-     * Additionally the callback methods are resolved through Laravel's service container, so any parameters will be automatically resolved.
-     * @see https://inertiajs.com/partial-reloads#lazy-data-evaluation
+     * If a method is typed to return a DeferProp, it will only be evaluated in a deferred request after the page has loaded
+     * NEVER included on first visit, OPTIONALLY included on partial reloads, ALWAYS evaluated after the page has loaded.
+     * Additionally the deferred callback methods are resolved through Laravel's service container, so any parameters will be automatically resolved.
+     * @see https://inertiajs.com/deferred-props
      */
-    public function quickLazyExample(): Closure
+    public function deferredExample(): DeferProp
     {
-        return function(InjectedDependency $example): string {
-            return $example->formatName($this->demo->user->name);
-        };
+        return Inertia::defer(
+            fn () => $this->demo->aHeavyCalculation()
+        );
     }
     
     /*
@@ -139,6 +160,19 @@ class DemoDataProvider extends DataProvider
         return Inertia::lazy(
             fn (InjectedDependency $example) => $example->aHeavyCalculation($this->demo)
         );
+    }
+    
+    /*
+     * If a method returns a `Closure` it will be evaluated as a lazy property.
+     * ALWAYS included on first visit, OPTIONALLY included on partial reloads, ONLY evaluated when needed
+     * Additionally the callback methods are resolved through Laravel's service container, so any parameters will be automatically resolved.
+     * @see https://inertiajs.com/partial-reloads#lazy-data-evaluation
+     */
+    public function quickLazyExample(): Closure
+    {
+        return function(InjectedDependency $example): string {
+            return $example->formatName($this->demo->user->name);
+        };
     }
     
     /*

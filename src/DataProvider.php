@@ -7,6 +7,7 @@ namespace Webfox\InertiaDataProviders;
 use Closure;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Inertia\DeferProp;
 use Inertia\LazyProp;
 use Inertia\Response;
 use ReflectionClass;
@@ -41,7 +42,7 @@ abstract class DataProvider implements Arrayable, Jsonable
             ->filter(fn (ReflectionMethod $method) => ! $method->isStatic() && ! in_array($method->name, $this->excludedMethods))
             ->mapWithKeys(function (ReflectionMethod $method) {
                 $returnType = $method->getReturnType();
-                if ($returnType instanceof ReflectionNamedType && in_array($returnType->getName(), [LazyProp::class, Closure::class])) {
+                if ($returnType instanceof ReflectionNamedType && in_array($returnType->getName(), [DeferProp::class, LazyProp::class, Closure::class])) {
                     return [$method->name => $method->invoke($this)];
                 }
 
