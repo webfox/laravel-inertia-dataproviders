@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Webfox\InertiaDataProviders;
 
 use Closure;
-use ReflectionClass;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
+use Inertia\DeferProp;
 use Inertia\LazyProp;
 use Inertia\Response;
+use ReflectionClass;
 use ReflectionMethod;
-use Inertia\DeferProp;
-use ReflectionProperty;
 use ReflectionNamedType;
-use Illuminate\Contracts\Support\Jsonable;
+use ReflectionProperty;
 use Symfony\Component\VarDumper\VarDumper;
-use Illuminate\Contracts\Support\Arrayable;
-use Webfox\InertiaDataProviders\WrappingAttributes\WrappingAttribute;
 use Webfox\InertiaDataProviders\AttributeNameFormatters\AttributeNameFormatter;
+use Webfox\InertiaDataProviders\WrappingAttributes\WrappingAttribute;
 
 abstract class DataProvider implements Arrayable, Jsonable
 {
@@ -31,16 +31,16 @@ abstract class DataProvider implements Arrayable, Jsonable
 
     public function toArray(): array
     {
-        $staticData      = $this->staticData instanceof Arrayable ? $this->staticData->toArray() : $this->staticData;
+        $staticData = $this->staticData instanceof Arrayable ? $this->staticData->toArray() : $this->staticData;
         $reflectionClass = (new ReflectionClass($this));
 
         $convertedProperties = collect($reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC))
-            ->filter(fn(ReflectionProperty $property) => !$property->isStatic())
-            ->mapWithKeys(fn(ReflectionProperty $property) => [$property->getName() => $property->getValue($this)])
-            ->map(fn($value) => $value instanceof Arrayable ? $value->toArray() : $value);
+            ->filter(fn (ReflectionProperty $property) => ! $property->isStatic())
+            ->mapWithKeys(fn (ReflectionProperty $property) => [$property->getName() => $property->getValue($this)])
+            ->map(fn ($value) => $value instanceof Arrayable ? $value->toArray() : $value);
 
         $convertedMethods = collect($reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC))
-            ->filter(fn(ReflectionMethod $method) => !$method->isStatic() && !in_array($method->name, $this->excludedMethods))
+            ->filter(fn (ReflectionMethod $method) => ! $method->isStatic() && ! in_array($method->name, $this->excludedMethods))
             ->mapWithKeys(function (ReflectionMethod $method) {
                 $attributes = $method->getAttributes();
                 $returnType = $method->getReturnType();
@@ -53,19 +53,19 @@ abstract class DataProvider implements Arrayable, Jsonable
                     foreach ($attributes as $attribute) {
                         $attributeInstance = $attribute->newInstance();
                         if ($attributeInstance instanceof WrappingAttribute) {
-                            return [$method->name => $attributeInstance(fn() => app()->call([$this, $method->name]))];
+                            return [$method->name => $attributeInstance(fn () => app()->call([$this, $method->name]))];
                         }
                     }
                 }
 
-                return [$method->name => fn() => app()->call([$this, $method->name])];
+                return [$method->name => fn () => app()->call([$this, $method->name])];
             });
 
         return collect()
             ->merge($staticData)
             ->merge($convertedProperties)
             ->merge($convertedMethods)
-            ->mapWithKeys(fn($value, $key) => [$this->attributeNameFormatter()($key) => $value])
+            ->mapWithKeys(fn ($value, $key) => [$this->attributeNameFormatter()($key) => $value])
             ->toArray();
     }
 

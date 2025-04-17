@@ -2,7 +2,6 @@
 
 namespace Webfox\InertiaDataProviders\WrappingAttributes;
 
-
 use Attribute;
 use Inertia\Inertia;
 
