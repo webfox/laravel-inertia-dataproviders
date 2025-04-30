@@ -34,6 +34,32 @@ No more 40 line controller methods for fetching data!
 
 ## Usage
 
+### Make Command
+
+Creating a new Inertia Data Provider is easy with the make:data-provider command.
+
+#### Command:
+
+```Bash
+php artisan make:data-provider {name}
+```
+
+#### Arguments:
+
+* `{name}`: The name of the enum class to be created (e.g., OrderStatus). The command will automatically append "Enum" to the name (e.g., OrderStatusEnum).
+* `{--force}`: Overwrite the data provider if it already exists.
+
+#### Example Usage:
+
+``` Bash
+php artisan make:data-provider UserProfileDataProvider
+```
+
+This will generate a UserProfileDataProvider in the `app/Http/DataProviders` directory.
+
+> [!TIP]
+> Using Laravel Idea? There's a "Create Inertia Data Provider" action available!
+
 ### Using a Data Provider
 Data providers take advantage of the fact that `Inertia::render` can accept an `Arrayable`. 
 They can also be used as discrete attributes in the data array.
