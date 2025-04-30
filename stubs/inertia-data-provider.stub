@@ -1,0 +1,16 @@
+<?php
+
+namespace {{ namespace }};
+
+use Webfox\InertiaDataProviders\DataProvider;
+
+class {{ class }} extends DataProvider
+{
+
+    public function __construct()
+    {
+        $this->staticData = [
+        ];
+    }
+
+}
