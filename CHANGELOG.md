@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-inertia-dataproviders` will be documented in this file.
 
+## v2.2.0 - 2025-04-30
+
+### What's Changed
+
+* Add make:data-provider command. by @hailwood in https://github.com/webfox/laravel-inertia-dataproviders/pull/28
+
+**Full Changelog**: https://github.com/webfox/laravel-inertia-dataproviders/compare/v2.1.0...v2.2.0
+
 ## v2.1.0 - 2025-02-14
 
 ### What's Changed
