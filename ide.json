@@ -1,0 +1,25 @@
+{
+  "$schema": "https://laravel-ide.com/schema/laravel-ide-v2.json",
+  "codeGenerations": [
+    {
+      "id": "webfox.create-inertia-data-provider",
+      "name": "Create Inertia Data Provider",
+      "classSuffix": "DataProvider",
+      "files": [
+        {
+          "appNamespace": "Http\\DataProviders",
+          "name": "${INPUT_CLASS|className|upperCamelCase}.php",
+          "template": {
+            "type": "stub",
+            "path": "/stubs/inertia-data-provider.stub",
+            "fallbackPath": "stubs/inertia-data-provider.stub",
+            "parameters": {
+              "{{ class }}": "${INPUT_CLASS|className|upperCamelCase}",
+              "{{ namespace }}": "${INPUT_FQN|namespace}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
