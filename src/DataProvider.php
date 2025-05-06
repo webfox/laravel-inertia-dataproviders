@@ -16,6 +16,7 @@ use ReflectionNamedType;
 use ReflectionProperty;
 use Symfony\Component\VarDumper\VarDumper;
 use Webfox\InertiaDataProviders\AttributeNameFormatters\AttributeNameFormatter;
+use Webfox\InertiaDataProviders\WrappingAttributes\WrappingAttribute;
 
 abstract class DataProvider implements Arrayable, Jsonable
 {
@@ -41,9 +42,20 @@ abstract class DataProvider implements Arrayable, Jsonable
         $convertedMethods = collect($reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC))
             ->filter(fn (ReflectionMethod $method) => ! $method->isStatic() && ! in_array($method->name, $this->excludedMethods))
             ->mapWithKeys(function (ReflectionMethod $method) {
+                $attributes = $method->getAttributes();
                 $returnType = $method->getReturnType();
+
                 if ($returnType instanceof ReflectionNamedType && in_array($returnType->getName(), [DeferProp::class, LazyProp::class, Closure::class])) {
                     return [$method->name => $method->invoke($this)];
+                }
+
+                if (count($attributes) > 0) {
+                    foreach ($attributes as $attribute) {
+                        $attributeInstance = $attribute->newInstance();
+                        if ($attributeInstance instanceof WrappingAttribute) {
+                            return [$method->name => $attributeInstance(fn () => app()->call([$this, $method->name]))];
+                        }
+                    }
                 }
 
                 return [$method->name => fn () => app()->call([$this, $method->name])];
